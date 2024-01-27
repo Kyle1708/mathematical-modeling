@@ -1,0 +1,21 @@
+import pprint
+from cvxopt import matrix, solvers
+P = matrix([[4.0,1.0],[1.0,2.0]])
+q = matrix([1.0,1.0])
+G = matrix([[-1.0,0.0],[0.0,-1.0]])
+h = matrix([0.0,0.0])
+A = matrix([1.0,1.0],(1,2))#原型为cvxopt.matrix(array,dims)，等价于A = matrix([[1.0],[1.0]]）
+b = matrix([1.0])
+result = solvers.qp(P,q,G,h,A,b)
+ 
+print('x\n',result['x'])
+
+编程求解思路：
+
+1.对于一个给定的二次规划问题，先转换为标准形式（参见数学基础中所讲的二次型二中形式转换）
+
+2.对照标准形势，构建出矩阵P,q,G,h,A,b
+
+3.调用result=Cvxopt.solvers.qp(P,q,G,h,A,b)求解
+
+4.print（result）查看结果，其中result是一个字典，我们可直接获得其某个属性，e.g. print(result['x'])
